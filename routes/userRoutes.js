@@ -1,5 +1,4 @@
 const userModel = require('../models/Usermodel');
-
 const userController = require("../controllers/userController");
 
 module.exports = (db) => {
