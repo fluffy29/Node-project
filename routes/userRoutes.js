@@ -1,4 +1,5 @@
-const userModel = require("C:\Users\hmajz\Downloads\node-project\models");
+const userModel = require('../models/Usermodel');
+
 const userController = require("../controllers/userController");
 
 module.exports = (db) => {
