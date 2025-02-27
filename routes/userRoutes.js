@@ -1,5 +1,4 @@
 const userModel = require('../models/Usermodel');
-
 const userController = require("../controllers/userController");
 
 module.exports = (db) => {
@@ -13,3 +12,5 @@ module.exports = (db) => {
 
   return router;
 };
+
+
