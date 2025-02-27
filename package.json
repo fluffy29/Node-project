@@ -1,4 +1,12 @@
 {
+  "name": "my-node-mysql-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node index.js",
+    "start": "node index.js"
+  },
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",

@@ -3,12 +3,10 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 
-
 const env = process.env.NODE_ENV || 'development';
-const config = require(`./config/${env}.js`);
+const config = require(`./config/${env}.js`); 
 
 const mysql = require('mysql2');
-
 const db = mysql.createConnection({
   host: config.mysql.host,
   user: config.mysql.user,
@@ -24,11 +22,12 @@ db.connect((err) => {
   console.log(`Connected to MySQL (${env} environment)`);
 });
 
+
 app.use(express.json());
 
-const userRoutes = require('./routes/userRoutes');
+const userRoutes = require('./routes/userroutes');
 app.use('/users', userRoutes(db));
 
 app.listen(config.port, () => {
-  console.log(`Server is running on port ${config.port} in ${env} mode`);
+  console.log(`Server running on port ${config.port} in ${env} mode`);
 });
