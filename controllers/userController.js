@@ -16,12 +16,13 @@ module.exports = {
   },
 
   createUser: (model, db) => (req, res) => {
+    const { name, email } = req.body;
+    if (!name || !email) {
+      return res.status(400).json({ error: "Name and email are required" });
+    }
     model.createUser(db, req.body, (err, result) => {
       if (err) return res.status(500).json({ error: err.message });
-      res.status(201).json({
-        message: "User created",
-        userId: result.insertId,
-      });
+      res.status(201).json({ message: "User created", id: result.insertId });
     });
   },
 
