@@ -3,7 +3,7 @@ const app = express();
 const config = require("./config/test");
 const mysql = require("mysql2");
 
-// Database connection
+// Database connection for the data base
 const db = mysql.createConnection({
   host: config.mysql.host,
   user: config.mysql.user,
@@ -20,13 +20,13 @@ db.connect((err) => {
   console.log(`Connected to MySQL (${process.env.NODE_ENV} environment)`);
 });
 
-// Middleware to parse JSON bodies
+// Middleware to parse JSON bodies in requests
 app.use(express.json());
 
-// Import routes
+// Import routes and pass them the database connection
 const userRoutes = require("./routes/userRoutes")(db);
 
-// Register routes
+// Register routes with the app
 app.use("/users", userRoutes);
 
 let server;
@@ -37,5 +37,4 @@ if (process.env.NODE_ENV !== "test") {
   });
 }
 
-// Export the app, server, and db for testing
 module.exports = { app, server, db };

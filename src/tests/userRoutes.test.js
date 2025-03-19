@@ -1,9 +1,8 @@
 const request = require("supertest");
 const express = require("express");
-const userController = require("../../controllers/userController");
-const userRoutes = require("../routes/userRoutes");
+const userRoutes = require("../../routes/userRoutes");
 
-jest.mock("../controllers/userController", () => ({
+jest.mock("../../controllers/userController", () => ({
   getAllUsers: jest.fn((db, callback) =>
     callback(null, [{ id: 1, name: "John Doe" }])
   ),

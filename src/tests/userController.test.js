@@ -12,12 +12,12 @@ describe("User Controller", () => {
       deleteUser: jest.fn(),
     };
 
-    mockDb = {}; // Simulating a database connection object
+    mockDb = {}; 
 
-    mockReq = { params: {}, body: {} }; // Simulating request object
+    mockReq = { params: {}, body: {} }; 
     mockRes = {
       json: jest.fn(),
-      status: jest.fn(() => mockRes), // Allows method chaining
+      status: jest.fn(() => mockRes),
     };
   });
 
