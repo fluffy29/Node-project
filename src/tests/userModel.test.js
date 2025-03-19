@@ -1,5 +1,5 @@
 const mysql = require("mysql2/promise");
-const config = require("../../config/test-config");
+const config = require("../../config/test");
 
 describe("User Model", () => {
   let db;
