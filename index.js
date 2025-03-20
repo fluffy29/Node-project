@@ -1,33 +1,40 @@
-require('dotenv').config(); 
-
-const express = require('express');
+const express = require("express");
 const app = express();
+const config = require("./config/test");
+const mysql = require("mysql2");
 
-const env = process.env.NODE_ENV || 'development';
-const config = require(`./config/${env}.js`); 
-
-const mysql = require('mysql2');
+// Database connection for the data base
 const db = mysql.createConnection({
   host: config.mysql.host,
   user: config.mysql.user,
   password: config.mysql.password,
-  database: config.mysql.database
+  database: config.mysql.database,
+  charset: "utf8mb4",
 });
 
 db.connect((err) => {
   if (err) {
-    console.error('Error connecting to MySQL:', err);
+    console.error("Error connecting to MySQL:", err);
     process.exit(1);
   }
-  console.log(`Connected to MySQL (${env} environment)`);
+  console.log(`Connected to MySQL (${process.env.NODE_ENV} environment)`);
 });
 
-
+// Middleware to parse JSON bodies in requests
 app.use(express.json());
 
-const userRoutes = require('./routes/userroutes');
-app.use('/users', userRoutes(db));
+// Import routes and pass them the database connection
+const userRoutes = require("./routes/userRoutes")(db);
 
-app.listen(config.port, () => {
-  console.log(`Server running on port ${config.port} in ${env} mode`);
-});
+// Register routes with the app
+app.use("/users", userRoutes);
+
+let server;
+
+if (process.env.NODE_ENV !== "test") {
+  server = app.listen(config.port, () => {
+    console.log(`Server running on port ${config.port}`);
+  });
+}
+
+module.exports = { app, server, db };
